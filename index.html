@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skincare da Vic</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'serif': ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #ffffff;
+            color: #1a1a1a;
+            /* Adicionado para evitar qualquer corte horizontal */
+            overflow-x: hidden;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        .stagger-1 { animation-delay: 0.1s; opacity: 0; }
+        .stagger-2 { animation-delay: 0.2s; opacity: 0; }
+        .stagger-3 { animation-delay: 0.3s; opacity: 0; }
+        .stagger-4 { animation-delay: 0.4s; opacity: 0; }
+
+        .header-border {
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #d4d4d4, transparent);
+            /* Ajustado margin para responsividade */
+            margin: 4rem auto; /* 64px */
+            max-width: 200px;
+        }
+        
+        @media (min-width: 768px) { /* breakpoint 'md' do Tailwind */
+             .section-divider {
+                margin: 5rem auto; /* 80px */
+            }
+        }
+
+        .product-item {
+            position: relative;
+            padding-left: 0;
+            transition: all 0.3s ease;
+            border-left: 2px solid transparent;
+            padding: 12px 0 12px 20px;
+        }
+
+        @media (min-width: 640px) { /* sm */
+            .product-item {
+                padding: 16px 0 16px 24px;
+            }
+        }
+
+        .product-item:hover {
+            border-left-color: #1a1a1a;
+        }
+
+        @media (min-width: 640px) { /* sm */
+            .product-item:hover {
+                padding-left: 32px;
+            }
+        }
+
+        .product-number {
+            position: absolute;
+            left: 0;
+            top: 14px;
+            font-size: 10px;
+            font-weight: 600;
+            color: #999;
+            letter-spacing: 0.1em;
+        }
+
+        @media (min-width: 640px) { /* sm */
+            .product-number {
+                top: 18px;
+                font-size: 11px;
+            }
+        }
+
+        .icon-sun, .icon-moon {
+            width: 48px;
+            height: 48px;
+        }
+
+        .logo-header {
+            letter-spacing: 0.3em;
+            font-weight: 400;
+        }
+
+        h2 {
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .product-text {
+            font-weight: 400;
+            letter-spacing: 0.01em;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header fixo -->
+    <header class="header-border bg-white fixed top-0 left-0 right-0 z-50 fade-in">
+        <!-- Padding horizontal ajustado para mobile (px-4) e maior para telas sm+ (px-6) -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-6">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <!-- Tamanho da fonte ajustado para mobile (text-xl) e maior para sm+ (text-2xl) -->
+                <div class="logo-header text-xl sm:text-2xl font-serif tracking-widest">
+                    SKINCARE
+                </div>
+                
+                <!-- Dia da Semana -->
+                <div id="dia-da-semana" class="text-sm font-medium tracking-wide uppercase">
+                    Carregando...
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Espaçamento do header fixo (altura ajustada) -->
+    <div class="h-20 sm:h-24"></div>
+
+    <!-- Container Principal -->
+    <!-- Padding horizontal (px-4) e vertical (py-12) ajustados para mobile -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 py-12 md:py-20">
+        
+        <!-- Seção Diurna -->
+        <!-- Margin-bottom (mb-16) ajustada para mobile -->
+        <section class="mb-16 md:mb-32">
+            <!-- 
+              MUDANÇA RESPONSIVA:
+              - 'flex-col' (vertical) por padrão (mobile)
+              - 'md:flex-row' (horizontal) em telas médias e acima
+              - 'gap-8' (espaçamento vertical) em mobile
+              - 'md:gap-12' (espaçamento horizontal) em desktop
+            -->
+            <div class="flex flex-col md:flex-row md:items-start md:gap-12 gap-8 fade-in-up stagger-1">
+                
+                <!-- Ícone e Título -->
+                <!-- 
+                  MUDANÇA RESPONSIVA:
+                  - 'w-full' (largura total) por padrão (mobile)
+                  - 'md:w-64' (largura fixa) em telas médias e acima
+                -->
+                <div class="flex-shrink-0 w-full md:w-64">
+                    <div class="mb-6">
+                        <!-- Ícone Sol Personalizado -->
+                        <svg class="icon-sun" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="24" cy="24" r="8" stroke="#1a1a1a" stroke-width="1.5"/>
+                            <line x1="24" y1="4" x2="24" y2="10" stroke="#1a1a1a" stroke-width="1.5" stroke-linecap="round"/>
+                            <line x1="24" y1="38" x2="24" y2="44" stroke="#1a1a1a" stroke-width="1.5" stroke-linecap="round"/>
+                            <line x1="44" y1="24" x2="38" y2="24" stroke="#1a1a1a" stroke-width="1.5" stroke-linecap="round"/>
+                            <line x1="10" y1="24" x2="4" y2="24" stroke="#1a1a1a" stroke-width="1.5" stroke-linecap="round"/>
+                            <line x1="38.5" y1="9.5" x2="34.2" y2="13.8" stroke="#1a1a1a" stroke-width="1.5" stroke-linecap="round"/>
+                            <line x1="13.8" y1="34.2" x2="9.5" y2="38.5" stroke="#1a1a1a" stroke-width="1.5" stroke-linecap="round"/>
+                            <line x1="38.5" y1="38.5" x2="34.2" y2="34.2" stroke="#1a1a1a" stroke-width="1.5" stroke-linecap="round"/>
+                            <line x1="13.8" y1="13.8" x2="9.5" y2="9.5" stroke="#1a1a1a" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h2 class="text-xl mb-3 font-sans">Rotina Diurna</h2>
+                    <p class="text-sm text-gray-500 leading-relaxed">
+                        Protocolo matinal para proteção e luminosidade
+                    </p>
+                </div>
+
+                <!-- Lista de Produtos -->
+                <div class="flex-1">
+                    <ul id="lista-diurna" class="space-y-0">
+                        <!-- Produtos serão inseridos aqui -->
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Divider (estilo CSS já ajustado com media query) -->
+        <div class="section-divider"></div>
+
+        <!-- Seção Noturna -->
+        <section>
+            <!-- 
+              MUDANÇA RESPONSIVA:
+              - 'flex-col' (vertical) por padrão (mobile)
+              - 'md:flex-row' (horizontal) em telas médias e acima
+              - 'gap-8' (espaçamento vertical) em mobile
+              - 'md:gap-12' (espaçamento horizontal) em desktop
+            -->
+            <div class="flex flex-col md:flex-row md:items-start md:gap-12 gap-8 fade-in-up stagger-2">
+                
+                <!-- Ícone e Título -->
+                <!-- 
+                  MUDANÇA RESPONSIVA:
+                  - 'w-full' (largura total) por padrão (mobile)
+                  - 'md:w-64' (largura fixa) em telas médias e acima
+                -->
+                <div class="flex-shrink-0 w-full md:w-64">
+                    <div class="mb-6">
+                        <!-- 
+                          ÍCONE DA LUA MINIMALISTA: 
+                          - SVG substituído por uma versão mais simples
+                        -->
+                        <svg class="icon-moon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M24.5 44C35.269 44 44 35.269 44 24.5C44 13.731 35.269 5 24.5 5C24.004 5 23.51 5.02 23.018 5.06C28.13 7.55 31.5 12.8 31.5 18.75C31.5 26.61 25.11 33 17.25 33C13.72 33 10.47 31.81 7.8 29.77C10.15 38.3 16.66 44 24.5 44Z" stroke="#1a1a1a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h2 class="text-xl mb-3 font-sans">Rotina Noturna</h2>
+                    <p class="text-sm text-gray-500 leading-relaxed">
+                        Protocolo noturno para regeneração e reparação
+                    </p>
+                </div>
+
+                <!-- Lista de Produtos -->
+                <div class="flex-1">
+                    <ul id="lista-noturna" class="space-y-0">
+                        <!-- Produtos serão inseridos aqui -->
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer Info -->
+        <!-- Margin-top (mt-16) ajustado para mobile -->
+        <div class="mt-16 md:mt-32 text-center fade-in-up stagger-3">
+            <div class="section-divider mb-8"></div>
+            <p class="text-xs text-gray-400 tracking-widest uppercase">
+                Rotina Personalizada
+            </p>
+        </div>
+    </main>
+
+    <script>
+        const rotinas = {
+            0: { 
+                dia: "Domingo",
+                diurna: ["Gel de limpeza", "Tônico", "Hidratante (Hialurônico)", "Filtro solar"],
+                noturna: ["Gel de limpeza", "Niaciamida"]
+            },
+            1: { 
+                dia: "Segunda-feira",
+                diurna: ["Gel de limpeza", "Tônico", "Hidratante (Hialurônico)", "Filtro solar"],
+                noturna: ["Gel de limpeza", "Glicólico"]
+            },
+            2: { 
+                dia: "Terça-feira",
+                diurna: ["Gel de limpeza", "Tônico", "Hidratante (Hialurônico)", "Filtro solar"],
+                noturna: ["Gel de limpeza", "Niaciamida"]
+            },
+            3: { 
+                dia: "Quarta-feira",
+                diurna: ["Gel de limpeza", "Tônico", "Hidratante (Hialurônico)", "Filtro solar"],
+                noturna: ["Gel de limpeza", "Mandélico"]
+            },
+            4: { 
+                dia: "Quinta-feira",
+                diurna: ["Gel de limpeza", "Tônico", "Hidratante (Hialurônico)", "Filtro solar"],
+                noturna: ["Gel de limpeza", "Hialurônico"]
+            },
+            5: { 
+                dia: "Sexta-feira",
+                diurna: ["Gel de limpeza", "Tônico", "Hidratante (Hialurônico)", "Filtro solar"],
+                noturna: ["Gel de limpeza", "Niaciamida"]
+            },
+            6: {
+                dia: "Sábado",
+                diurna: ["Gel de limpeza", "Tônico", "Hidratante (Hialurônico)", "Filtro solar"],
+                noturna: ["Gel de limpeza", "Glicólico"]
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const hoje = new Date();
+            const diaDaSemana = hoje.getDay();
+            const rotinaDeHoje = rotinas[diaDaSemana];
+
+            const elDia = document.getElementById('dia-da-semana');
+            const elListaDiurna = document.getElementById('lista-diurna');
+            const elListaNoturna = document.getElementById('lista-noturna');
+
+            elDia.textContent = rotinaDeHoje.dia.toUpperCase();
+
+            const preencherLista = (listaElemento, produtos) => {
+                listaElemento.innerHTML = '';
+                
+                produtos.forEach((produto, index) => {
+                    const li = document.createElement('li');
+                    li.className = 'product-item';
+                    
+                    const number = document.createElement('span');
+                    number.className = 'product-number';
+                    number.textContent = String(index + 1).padStart(2, '0');
+                    
+                    const text = document.createElement('span');
+                    text.className = 'product-text text-base sm:text-lg';
+                    text.textContent = produto;
+                    
+                    li.appendChild(number);
+                    li.appendChild(text);
+                    listaElemento.appendChild(li);
+                });
+            };
+
+            preencherLista(elListaDiurna, rotinaDeHoje.diurna);
+            preencherLista(elListaNoturna, rotinaDeHoje.noturna);
+        });
+    </script>
+</body>
+</html>
